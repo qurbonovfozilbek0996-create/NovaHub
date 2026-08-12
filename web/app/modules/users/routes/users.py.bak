@@ -1,0 +1,186 @@
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.dependencies.services import get_db_session
+from app.modules.users.services.user_service import UserService
+
+from fastapi import Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+
+router = APIRouter(
+    prefix="/admin/users",
+    tags=["Admin Users"],
+)
+
+templates = Jinja2Templates(
+    directory="app/templates",
+)
+
+@router.get("/")
+async def list_users(
+    page: int = 1,
+    per_page: int = 20,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    data = await service.get_users(
+        page=page,
+        per_page=per_page,
+    )
+
+    return {
+        "success": True,
+        "total": data["total"],
+        "page": data["page"],
+        "per_page": data["per_page"],
+        "users": [
+            {
+                "id": user.id,
+                "telegram_id": user.telegram_id,
+                "full_name": user.full_name,
+                "username": user.username,
+            }
+            for user in data["items"]
+        ],
+    }
+
+@router.get("/search/{query}")
+async def search_users(
+    query: str,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    users = await service.search_users(query)
+
+    return {
+        "success": True,
+        "count": len(users),
+        "users": [
+            {
+                "id": user.id,
+                "telegram_id": user.telegram_id,
+                "full_name": user.full_name,
+                "username": user.username,
+            }
+            for user in users
+        ],
+    }
+
+@router.post("/{user_id}/block")
+async def block_user(
+    user_id: int,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    user = await service.block_user(user_id)
+
+    if not user:
+        return {
+            "success": False,
+            "message": "User not found",
+        }
+
+    return {
+        "success": True,
+        "message": "User blocked",
+    }
+
+@router.post("/{user_id}/unblock")
+async def unblock_user(
+    user_id: int,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    user = await service.unblock_user(user_id)
+
+    if not user:
+        return {
+            "success": False,
+            "message": "User not found",
+        }
+
+    return {
+        "success": True,
+        "message": "User unblocked",
+    }
+
+@router.post("/{user_id}/role/{role_id}")
+async def change_user_role(
+    user_id: int,
+    role_id: int,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    user = await service.change_role(
+        user_id,
+        role_id,
+    )
+
+    if not user:
+        return {
+            "success": False,
+            "message": "User not found",
+        }
+
+    return {
+        "success": True,
+        "message": "Role updated",
+    }
+
+@router.get(
+    "/web",
+    response_class=HTMLResponse,
+)
+async def users_web(
+    request: Request,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    users = await service.get_users(
+        page=1,
+        per_page=100,
+    )
+
+    return templates.TemplateResponse(
+        request,
+        "users/index.html",
+        {
+            "users": users["items"],
+            "page": 1,
+        },
+    )
+
+@router.get("/{user_id}")
+async def get_user(
+    user_id: int,
+    session: AsyncSession = Depends(get_db_session),
+):
+    service = UserService(session)
+
+    user = await service.get_user(user_id)
+
+    if not user:
+        return {
+            "success": False,
+            "message": "User not found",
+        }
+
+    return {
+        "success": True,
+        "user": {
+            "id": user.id,
+            "telegram_id": user.telegram_id,
+            "full_name": user.full_name,
+            "username": user.username,
+            "role_id": user.role_id,
+            "is_banned": user.is_banned,
+        },
+    }

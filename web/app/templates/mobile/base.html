@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="uz">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        {% block title %}
+        NovaHub Digital
+        {% endblock %}
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/mobile.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                🚀
+            </div>
+
+            <div class="brand-text">
+
+                <h1>NovaHub</h1>
+
+                <small>Digital Platform</small>
+
+            </div>
+
+        </div>
+
+        <div class="wallet-box">
+
+            <span class="wallet-balance">
+
+                0 so'm
+
+            </span>
+
+            <button class="wallet-add">
+
+                +
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <nav class="top-tabs">
+
+        {% block tabs %}
+        {% endblock %}
+
+    </nav>
+
+    <main class="page-content">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <nav class="bottom-nav">
+
+        <a href="/" class="nav-item active">
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            <span class="nav-text">
+                Bosh sahifa
+            </span>
+
+        </a>
+
+        <a href="/orders" class="nav-item">
+
+            <span class="nav-icon">
+                📦
+            </span>
+
+            <span class="nav-text">
+                Buyurtmalar
+            </span>
+
+        </a>
+
+        <a href="/wallet" class="nav-item">
+
+            <span class="nav-icon">
+                👛
+            </span>
+
+            <span class="nav-text">
+                Wallet
+            </span>
+
+        </a>
+
+        <a href="/notifications" class="nav-item">
+
+            <span class="nav-icon">
+                🔔
+            </span>
+
+            <span class="nav-text">
+                Bildirish
+            </span>
+
+        </a>
+
+        <a href="/profile" class="nav-item">
+
+            <span class="nav-icon">
+                👤
+            </span>
+
+            <span class="nav-text">
+                Profil
+            </span>
+
+        </a>
+
+    </nav>
+
+    <div id="loading-overlay" class="loading-overlay">
+
+        <div class="loading-box">
+
+            <div class="loading-spinner"></div>
+
+            <p>Yuklanmoqda...</p>
+
+        </div>
+
+    </div>
+
+    {% block extra_js %}
+    {% endblock %}
+
+</div>
+
+<script src="/static/js/mobile.js"></script>
+
+</body>
+
+</html>

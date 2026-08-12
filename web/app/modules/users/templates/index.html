@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+NovaHub Users
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<h1>👥 NovaHub Users</h1>
+
+<input
+type="text"
+class="search"
+placeholder="Foydalanuvchini qidirish...">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Telegram</th>
+<th>Ism</th>
+<th>Username</th>
+<th>Role</th>
+<th>Status</th>
+<th>Amallar</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ user.id }}</td>
+
+<td>{{ user.telegram_id }}</td>
+
+<td>{{ user.full_name }}</td>
+
+<td>{{ user.username }}</td>
+
+<td>{{ user.role_id }}</td>
+
+<td>
+
+{% if user.is_banned %}
+
+❌ Block
+
+{% else %}
+
+✅ Active
+
+{% endif %}
+
+</td>
+
+<td>
+
+<button class="btn view">Ko'rish</button>
+
+<button class="btn block">Block</button>
+
+<button class="btn role">Role</button>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<div class="pagination">
+
+Page {{ page }}
+
+</div>
+
+</div>
+
+{% endblock %}

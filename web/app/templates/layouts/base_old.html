@@ -1,0 +1,260 @@
++<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="NovaHub Digital Platform"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0F172A"
+    >
+
+    <title>
+        {% block title %}
+        NovaHub Digital
+        {% endblock %}
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="app-wrapper">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <a href="/" class="logo">
+
+                <span class="logo-icon">
+                    ✨
+                </span>
+
+                <div class="logo-text">
+
+                    <h2>
+                        NovaHub
+                    </h2>
+
+                    <small>
+                        Digital Platform
+                    </small>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            {% block sidebar %}
+
+            <a href="/" class="menu-item active">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                👤
+                <span>Profil</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                👛
+                <span>Wallet</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                ⭐
+                <span>Stars</span>
+            </a>
+
+            {% endblock %}
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="menu-item">
+                📦
+                <span>Buyurtmalar</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                ⚙️
+                <span>Sozlamalar</span>
+            </a>
+
+            {% block admin_menu %}
+            {% endblock %}
+
+        </div>
+
+    </aside>
+
+    <div class="main-wrapper">
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button class="menu-toggle">
+                    ☰
+                </button>
+
+                <h1>
+                    {% block page_title %}
+                    Dashboard
+                    {% endblock %}
+                </h1>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="icon-btn">
+                    🔔
+                </button>
+
+                <button class="icon-btn">
+                    🌙
+                </button>
+
+                <div class="profile-box">
+
+                    <div class="avatar">
+                        👤
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>
+                            {{ user.full_name if user else "Foydalanuvchi" }}
+                        </strong>
+
+                        <small>
+                            NovaHub Member
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <main class="content">
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+        <footer class="footer">
+
+            <span>
+                © 2026 NovaHub Digital
+            </span>
+
+            <span>
+                Barcha huquqlar himoyalangan.
+            </span>
+
+        </footer>
+
+    </div>
+
+</div>
+
+<script src="/static/js/app.js"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay">
+
+    <div class="loading-box">
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Yuklanmoqda...
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Global Modal -->
+<div id="global-modal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 id="modal-title">
+                NovaHub
+            </h3>
+
+            <button id="modal-close" class="modal-close">
+                ✕
+            </button>
+
+        </div>
+
+        <div id="modal-body" class="modal-body">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Toast Notifications -->
+<div id="toast-container">
+
+</div>
+
+<script src="/static/js/app.js"></script>
+
+</body>
+
+</html>

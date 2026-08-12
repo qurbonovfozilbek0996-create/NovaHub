@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API Providerlar — NovaHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head><body class="bg-light"><nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">🚀 NovaHub</a>
+    </div>
+</nav><div class="container py-4"><div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-1">API Providerlar</h3>
+        <div class="text-muted">API providerlarni boshqarish</div>
+    </div>
+
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#providerModal">
+        + Provider qo‘shish
+    </button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5>Providerlar ro‘yxati</h5>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nomi</th>
+                        <th>Turi</th>
+                        <th>Base URL</th>
+                        <th>Holati</th>
+                        <th class="text-end">Amallar</th>
+                    </tr>
+                </thead>
+                <tbody id="providersTable">
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            Yuklanmoqda...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div><div class="modal fade" id="providerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">        <form id="providerForm">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Yangi API Provider</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label class="form-label">Provider ID</label>
+                    <input id="provider_id" type="number" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Provider turi</label>
+                    <select id="provider_type" class="form-select">
+                        <option value="SMM">SMM</option>
+                        <option value="TELEGRAM">Telegram</option>
+                        <option value="NUMBERS">Numbers</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Provider nomi</label>
+                    <input id="name" class="form-control" placeholder="CheapSMM" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">API Base URL</label>
+                    <input id="base_url" class="form-control"
+                           placeholder="https://cheap-smm.uz" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">API Key</label>
+                    <input id="api_key" type="password" class="form-control"
+                           placeholder="API kalitini kiriting" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label">API versiya</label>
+                        <input id="api_version" class="form-control" value="v2">
+                    </div>
+
+                    <div class="col-3">
+                        <label class="form-label">Timeout</label>
+                        <input id="timeout" type="number" class="form-control" value="30">
+                    </div>
+
+                    <div class="col-3">
+                        <label class="form-label">Priority</label>
+                        <input id="priority" type="number" class="form-control" value="1">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Bekor qilish
+                </button>
+
+                <button class="btn btn-primary">
+                    Saqlash
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script>
+
+const table = document.getElementById("providersTable");
+
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+async function loadProviders() {
+
+    const response = await fetch("/admin/providers/");
+    const data = await response.json();
+
+    if (!response.ok) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center text-danger">
+                    Providerlarni yuklashda xatolik.
+                </td>
+            </tr>`;
+        return;
+    }
+
+    if (!data.items?.length) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center text-muted py-4">
+                    Hozircha providerlar mavjud emas.
+                </td>
+            </tr>`;
+        return;
+    }
+
+    table.innerHTML = data.items.map(provider => {
+
+        const active = provider.is_active === true;
+
+        return `
+            <tr>
+                <td>${escapeHtml(provider.provider_id)}</td>
+                <td><strong>${escapeHtml(provider.name)}</strong></td>
+                <td>${escapeHtml(provider.provider_type)}</td>
+                <td>${escapeHtml(provider.base_url)}</td>
+
+                <td>
+                    <span class="badge ${active ? "bg-success" : "bg-secondary"}">
+                        ${active ? "Faol" : "Nofaol"}
+                    </span>
+                </td>
+
+                <td class="text-end">
+                    <a href="/admin/providers/${provider.provider_id}"
+                       class="btn btn-sm btn-outline-primary">
+                        Ko‘rish
+                    </a>
+
+                    ${
+                        active
+                        ? `<button class="btn btn-sm btn-outline-danger"
+                                   onclick="changeStatus(${provider.provider_id}, 'deactivate')">
+                               O‘chirish
+                           </button>`
+                        : `<button class="btn btn-sm btn-outline-success"
+                                   onclick="changeStatus(${provider.provider_id}, 'activate')">
+                               Faollashtirish
+                           </button>`
+                    }
+                </td>
+            </tr>`;
+    }).join("");
+}
+
+
+async function changeStatus(id, action) {
+
+    const response = await fetch(
+        `/admin/providers/${id}/${action}`,
+        { method: "PATCH" }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.detail || "Xatolik yuz berdi.");
+        return;
+    }
+
+    await loadProviders();
+}
+
+
+document.getElementById("providerForm").addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    const payload = {
+        provider_id: Number(document.getElementById("provider_id").value),
+        provider_type: document.getElementById("provider_type").value,
+        name: document.getElementById("name").value.trim(),
+        base_url: document.getElementById("base_url").value.trim(),
+        api_key: document.getElementById("api_key").value.trim(),
+        api_version: document.getElementById("api_version").value.trim() || "v2",
+        timeout: Number(document.getElementById("timeout").value) || 30,
+        priority: Number(document.getElementById("priority").value) || 1
+    };
+
+    const response = await fetch("/admin/providers/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.detail || "Provider qo‘shishda xatolik.");
+        return;
+    }
+
+    document.getElementById("providerForm").reset();
+
+    bootstrap.Modal
+        .getInstance(document.getElementById("providerModal"))
+        ?.hide();
+
+    await loadProviders();
+});
+
+
+loadProviders();
+
+</script></body>
+</html>

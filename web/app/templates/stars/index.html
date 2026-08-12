@@ -1,0 +1,119 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Telegram Stars
+{% endblock %}
+
+{% block content %}
+
+<div class="mobile-page">
+
+    <div class="service-header">
+
+        <div class="service-icon">
+            ⭐
+        </div>
+
+        <h2>Telegram Stars</h2>
+
+        <p>
+            Telegram Stars xarid qilish
+        </p>
+
+    </div>
+
+    <div class="form-card">
+
+        <label>
+
+            Qabul qiluvchi
+
+        </label>
+
+        <input
+            type="text"
+            class="input"
+            placeholder="@username yoki Telegram ID"
+        >
+
+        <button class="myself-button">
+
+            O'zim uchun
+
+        </button>
+
+    </div>
+
+    <div class="form-card">
+
+        <label>
+
+            Stars miqdori
+
+        </label>
+
+        <div class="stars-grid">
+
+            <button class="selected">50 ⭐</button>
+
+            <button>75 ⭐</button>
+
+            <button>100 ⭐</button>
+
+            <button>250 ⭐</button>
+
+            <button>500 ⭐</button>
+
+            <button>1000 ⭐</button>
+
+            <button>Boshqa</button>
+
+        </div>
+
+    </div>
+
+    <div class="price-card">
+
+        <div class="price-row">
+
+            <span>Narx</span>
+
+            <strong>0 so'm</strong>
+
+        </div>
+
+        <div class="price-row">
+
+            <span>Xizmat</span>
+
+            <strong>Telegram Stars</strong>
+
+        </div>
+
+    </div>
+
+    <button class="buy-button">
+
+        ⭐ Stars sotib olish
+
+    </button>
+
+    <div class="info-card">
+
+        <h3>Eslatma</h3>
+
+        <ul>
+
+            <li>@username yoki Telegram ID orqali yuborish mumkin.</li>
+
+            <li>Username yoki ID to'g'ri kiritilganiga ishonch hosil qiling.</li>
+
+            <li>To'lov tasdiqlangandan so'ng buyurtma bajariladi.</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

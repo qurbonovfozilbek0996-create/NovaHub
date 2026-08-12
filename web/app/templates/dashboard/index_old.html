@@ -1,0 +1,316 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Dashboard | NovaHub Digital
+{% endblock %}
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <div class="welcome-card">
+
+        <div class="welcome-text">
+
+            <span class="welcome-badge">
+                ✨ NovaHub Digital
+            </span>
+
+            <h2>
+                Assalomu alaykum,
+                {{ user.full_name if user else "Foydalanuvchi" }} 👋
+            </h2>
+
+            <p>
+                NovaHub Digital platformasiga xush kelibsiz.
+                Barcha raqamli xizmatlaringizni bitta joydan
+                tez, xavfsiz va qulay boshqaring.
+            </p>
+
+        </div>
+
+        <div class="welcome-logo">
+
+            🚀
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <div class="card-title">
+                👥 Foydalanuvchilar
+            </div>
+
+            <div class="card-value">
+                {{ statistics.total_users }}
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Jami
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                👛 Walletlar
+            </div>
+
+            <div class="card-value">
+                {{ statistics.total_wallets }}
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Jami
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                ⏳ Kutilayotgan to'lovlar
+            </div>
+
+            <div class="card-value">
+                {{ statistics.pending_payments }}
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Pending
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                💰 Wallet aylanmasi
+            </div>
+
+            <div class="card-value">
+                {{ statistics.wallet_turnover }} so'm
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Umumiy
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <div class="card-title">
+                ✅ Tasdiqlangan to'lovlar
+            </div>
+
+            <div class="card-value">
+                {{ statistics.approved_payments }}
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Approved
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                💵 Bugungi daromad
+            </div>
+
+            <div class="card-value">
+                {{ statistics.today_revenue }} so'm
+            </div>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                ⚡ Tezkor amallar
+            </div>
+
+            <div class="quick-actions">
+
+                <button class="action-btn">
+                    👛 Wallet
+                </button>
+
+                <button class="action-btn">
+                    💳 To'lov
+                </button>
+
+                <button class="action-btn">
+                    📦 Buyurtmalar
+                </button>
+
+                <button class="action-btn">
+                    ⚙️ Sozlamalar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <div class="card-title">
+                📈 Tizim holati
+            </div>
+
+            <p>
+                NovaHub tizimi normal ishlamoqda.
+                Barcha asosiy servislar faol.
+            </p>
+
+            <div class="card-footer">
+
+                <span class="badge">
+                    🟢 Online
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-title">
+                📢 Eslatma
+            </div>
+
+            <p>
+                Dashboard ma'lumotlari real vaqt rejimida
+                ma'lumotlar bazasidan olinadi.
+            </p>
+
+        </div>
+
+    </div>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+
+        <div class="card-title">
+            💳 Payment kartalari
+        </div>
+
+        <div class="card-value">
+            {{ statistics.total_payment_cards }}
+        </div>
+
+        <div class="card-footer">
+            <span class="badge">
+                Jami
+            </span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            💸 Tranzaksiyalar
+        </div>
+
+        <div class="card-value">
+            {{ statistics.total_transactions }}
+        </div>
+
+        <div class="card-footer">
+            <span class="badge">
+                Jami
+            </span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            👤 Rollar
+        </div>
+
+        <div class="card-value">
+            {{ statistics.total_roles }}
+        </div>
+
+        <div class="card-footer">
+            <span class="badge">
+                Jami
+            </span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            🔐 Ruxsatlar
+        </div>
+
+        <div class="card-value">
+            {{ statistics.total_permissions }}
+        </div>
+
+        <div class="card-footer">
+            <span class="badge">
+                Jami
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

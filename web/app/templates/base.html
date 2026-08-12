@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{% block title %}NovaHub{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        /* =========================================
+           NOVAHUB ADMIN — MOBILE FIRST
+        ========================================= */
+
+        .admin-shell {
+            min-height: 100vh;
+            background: #0f172a;
+        }
+
+        .admin-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: #111827;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-brand-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb;
+            border-radius: 13px;
+            font-size: 21px;
+        }
+
+        .admin-brand-text strong {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .admin-brand-text span {
+            display: block;
+            margin-top: 2px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .admin-menu-button {
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 13px;
+            background: #1f2937;
+            color: #fff;
+            font-size: 21px;
+        }
+
+        .admin-layout {
+            display: block;
+        }
+
+        .admin-sidebar {
+            background: #111827;
+            padding: 14px;
+        }
+
+        .admin-menu-title {
+            margin: 4px 4px 12px;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .admin-nav {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .admin-nav a {
+            min-height: 58px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 15px;
+            background: #1f2937;
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a:active {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .admin-nav-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255,255,255,.08);
+            font-size: 17px;
+        }
+
+        .admin-nav-label {
+            line-height: 1.2;
+        }
+
+        .admin-content {
+            padding: 16px;
+            min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+
+            .admin-layout {
+                display: grid;
+                grid-template-columns: 250px minmax(0, 1fr);
+                min-height: calc(100vh - 71px);
+            }
+
+            .admin-sidebar {
+                min-height: calc(100vh - 71px);
+                border-right: 1px solid rgba(255,255,255,.08);
+            }
+
+            .admin-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-menu-button {
+                display: none;
+            }
+
+            .admin-content {
+                padding: 24px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="admin-shell">
+
+    <!-- YUQORI PANEL -->
+    <header class="admin-header">
+
+        <div class="admin-brand">
+
+            <div class="admin-brand-icon">
+                🚀
+            </div>
+
+            <div class="admin-brand-text">
+                <strong>NovaHub</strong>
+                <span>Admin boshqaruv paneli</span>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            class="admin-menu-button"
+            aria-label="Menyu"
+        >
+            ☰
+        </button>
+
+    </header>
+
+
+    <div class="admin-layout">
+
+        <!-- ADMIN MENYU -->
+        <aside class="admin-sidebar">
+
+            <div class="admin-menu-title">
+                Boshqaruv
+            </div>
+
+            <nav class="admin-nav">
+
+                <a href="/admin/dashboard">
+                    <span class="admin-nav-icon">🏠</span>
+                    <span class="admin-nav-label">Bosh sahifa</span>
+                </a>
+
+                <a href="/admin/users/web">
+                    <span class="admin-nav-icon">👥</span>
+                    <span class="admin-nav-label">Foydalanuvchilar</span>
+                </a>
+
+                <a href="/admin/roles/">
+                    <span class="admin-nav-icon">🛡️</span>
+                    <span class="admin-nav-label">Vakolatlar</span>
+                </a>
+
+                <a href="/admin/permissions/">
+                    <span class="admin-nav-icon">🔑</span>
+                    <span class="admin-nav-label">Ruxsatlar</span>
+                </a>
+
+                <a href="/admin/platforms/">
+                    <span class="admin-nav-icon">🌐</span>
+                    <span class="admin-nav-label">Platformalar</span>
+                </a>
+
+                <a href="/admin/categories/">
+                    <span class="admin-nav-icon">📂</span>
+                    <span class="admin-nav-label">Kategoriyalar</span>
+                </a>
+
+                <a href="/admin/services/">
+                    <span class="admin-nav-icon">🛠️</span>
+                    <span class="admin-nav-label">Xizmatlar</span>
+                </a>
+
+                <a href="/admin/orders/">
+                    <span class="admin-nav-icon">📦</span>
+                    <span class="admin-nav-label">Buyurtmalar</span>
+                </a>
+
+                <a href="/admin/payments/">
+                    <span class="admin-nav-icon">💳</span>
+                    <span class="admin-nav-label">To‘lovlar</span>
+                </a>
+
+                <a href="/admin/promotions/">
+                    <span class="admin-nav-icon">🎁</span>
+                    <span class="admin-nav-label">Aksiyalar</span>
+                </a>
+
+                <a href="/admin/settings/">
+                    <span class="admin-nav-icon">⚙️</span>
+                    <span class="admin-nav-label">Sozlamalar</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- ASOSIY QISM -->
+        <main class="admin-content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/static/js/app.js"></script>
+
+</body>
+
+</html>

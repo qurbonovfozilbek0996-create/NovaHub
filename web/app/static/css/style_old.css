@@ -1,0 +1,1145 @@
+/* =======================================================
+   NovaHub Digital
+   Premium UI Framework v1
+======================================================= */
+
+:root{
+
+    --primary:#2563EB;
+    --primary-hover:#1D4ED8;
+
+    --background:#0F172A;
+    --surface:#1E293B;
+    --surface-light:#334155;
+
+    --success:#22C55E;
+    --warning:#F59E0B;
+    --danger:#EF4444;
+
+    --text:#FFFFFF;
+    --text-muted:#CBD5E1;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:18px;
+
+    --transition:.25s;
+
+    --shadow:
+        0 12px 35px rgba(0,0,0,.25);
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+.app-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+.sidebar{
+
+    width:280px;
+
+    background:var(--surface);
+
+    border-right:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+.sidebar-top{
+
+    padding:28px;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+}
+
+.logo-icon{
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+}
+
+.logo-text h2{
+
+    font-size:22px;
+
+    font-weight:800;
+
+}
+
+.logo-text small{
+
+    color:var(--text-muted);
+
+    font-size:13px;
+
+}
+
+.sidebar-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:0 18px;
+
+}
+
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    color:var(--text-muted);
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:all .25s ease;
+
+}
+
+.menu-item:hover{
+
+    background:rgba(37,99,235,.12);
+
+    color:var(--text);
+
+    transform:translateX(6px);
+
+}
+
+.menu-item.active{
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color:#fff;
+
+    box-shadow:
+        0 12px 25px rgba(37,99,235,.35);
+
+}
+
+.menu-item span{
+
+    flex:1;
+
+}
+
+.sidebar-bottom{
+
+    padding:18px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.main-wrapper{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+}
+
+.topbar{
+
+    height:82px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    background:rgba(30,41,59,.75);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.topbar-left h1{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.menu-toggle{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--surface-light);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.25s;
+
+}
+
+.menu-toggle:hover{
+
+    background:var(--primary);
+
+}
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.icon-btn{
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--surface-light);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.25s;
+
+}
+
+.icon-btn:hover{
+
+    background:var(--primary);
+
+    transform:translateY(-2px);
+
+}
+
+.profile-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:8px 14px;
+
+    background:var(--surface-light);
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.profile-box:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #60A5FA
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+}
+
+.profile-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.profile-info strong{
+
+    font-size:15px;
+
+}
+
+.profile-info small{
+
+    color:var(--text-muted);
+
+    font-size:12px;
+
+}
+
+.content{
+
+    flex:1;
+
+    padding:32px;
+
+    overflow:auto;
+
+}
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:24px;
+
+}
+
+.card{
+
+    background:rgba(30,41,59,.85);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow);
+
+    transition:.25s;
+
+    backdrop-filter:blur(18px);
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(37,99,235,.35);
+
+}
+
+.card-title{
+
+    color:var(--text-muted);
+
+    font-size:14px;
+
+    margin-bottom:12px;
+
+}
+
+.card-value{
+
+    font-size:34px;
+
+    font-weight:800;
+
+}
+
+.card-footer{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.badge{
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:rgba(37,99,235,.18);
+
+    color:#60A5FA;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.footer{
+
+    height:70px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--text-muted);
+
+    font-size:13px;
+
+}
+
+/* ===========================
+   Loading Overlay
+=========================== */
+
+.loading-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(15,23,42,.75);
+
+    backdrop-filter:blur(10px);
+
+    z-index:9999;
+
+}
+
+.loading-box{
+
+    background:var(--surface);
+
+    padding:32px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+}
+
+.loading-spinner{
+
+    width:52px;
+
+    height:52px;
+
+    margin:0 auto 18px;
+
+    border:5px solid rgba(255,255,255,.15);
+
+    border-top:5px solid var(--primary);
+
+    border-radius:50%;
+
+    animation:spin .9s linear infinite;
+
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ===========================
+   Modal
+=========================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.65);
+
+    z-index:9998;
+
+}
+
+.modal-content{
+
+    width:500px;
+
+    max-width:92%;
+
+    background:var(--surface);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 24px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.modal-body{
+
+    padding:24px;
+
+}
+
+.modal-close{
+
+    border:none;
+
+    background:none;
+
+    color:var(--text);
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:900px){
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .topbar{
+
+        padding:0 18px;
+
+    }
+
+    .content{
+
+        padding:20px;
+
+    }
+
+    .footer{
+
+        padding:0 18px;
+
+        flex-direction:column;
+
+        justify-content:center;
+
+        gap:6px;
+
+    }
+
+}
+
+/* ==========================================
+   Dashboard
+========================================== */
+
+.dashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+
+}
+
+.welcome-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:30px;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1E40AF
+    );
+
+    box-shadow:0 20px 45px rgba(37,99,235,.35);
+
+}
+
+.welcome-text{
+
+    max-width:700px;
+
+}
+
+.welcome-badge{
+
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.15);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.welcome-text h2{
+
+    font-size:34px;
+
+    margin-bottom:15px;
+
+}
+
+.welcome-text p{
+
+    color:#E2E8F0;
+
+    line-height:1.8;
+
+}
+
+.welcome-logo{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:60px;
+
+}
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+.action-btn{
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.action-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(37,99,235,.35);
+
+}
+
+/* ===========================
+   NovaHub Admin Layout
+=========================== */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:260px;
+    background:#111827;
+    color:#fff;
+    padding:24px;
+}
+
+.sidebar h2{
+    margin:0 0 30px;
+    font-size:24px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.sidebar nav a{
+    color:#E5E7EB;
+    text-decoration:none;
+    padding:12px 16px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.sidebar nav a:hover{
+    background:#2563EB;
+    color:#fff;
+}
+
+.content{
+    flex:1;
+    padding:30px;
+    background:#F8FAFC;
+}
+
+/* ===========================
+   Mobile Responsive
+=========================== */
+
+@media (max-width:768px){
+
+.layout{
+    display:block;
+}
+
+.sidebar{
+    width:100%;
+    position:relative;
+    padding:20px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.sidebar nav a{
+    flex:1 1 45%;
+    text-align:center;
+}
+
+.content{
+    margin-left:0;
+    padding:15px;
+}
+
+.container{
+    width:100%;
+    margin:0;
+    overflow-x:auto;
+}
+
+.search{
+    width:100%;
+    box-sizing:border-box;
+}
+
+table{
+    min-width:900px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    white-space:nowrap;
+    padding:12px;
+}
+
+.btn{
+    width:100%;
+    margin-bottom:6px;
+}
+
+.pagination{
+    text-align:center;
+    margin-top:20px;
+}
+
+}
+
+/* ===========================
+   Users Mobile Responsive
+=========================== */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+@media (max-width:768px){
+
+    .container{
+        width:100%;
+        margin:0;
+        padding:10px;
+        box-sizing:border-box;
+    }
+
+    h1{
+        font-size:32px;
+        margin-bottom:20px;
+    }
+
+    .search{
+        width:100%;
+        margin-bottom:20px;
+        box-sizing:border-box;
+    }
+
+    table{
+        min-width:700px;
+        width:100%;
+    }
+
+    th,
+    td{
+        padding:10px;
+        white-space:nowrap;
+        font-size:14px;
+    }
+
+    td:last-child{
+        min-width:170px;
+    }
+
+    .btn{
+        display:block;
+        width:100%;
+        margin-bottom:6px;
+    }
+
+    .pagination{
+        text-align:center;
+        margin-top:20px;
+    }
+}
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.table-responsive table{
+    min-width:700px;
+}
+
+/* =========================================================
+   NovaHub Final Responsive Layout
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:260px;
+    background:#111827;
+    color:#fff;
+    flex-shrink:0;
+}
+
+.content{
+    flex:1;
+    padding:20px;
+    overflow-x:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:100%;
+}
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+.table-responsive table{
+    width:100%;
+    min-width:700px;
+    border-collapse:collapse;
+}
+
+.search{
+    width:100%;
+    margin-bottom:16px;
+}
+
+.btn{
+    cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        padding:16px;
+    }
+
+    .sidebar nav{
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .sidebar nav a{
+        width:100%;
+        display:block;
+    }
+
+    .content{
+        padding:12px;
+    }
+
+    .container{
+        padding:0;
+    }
+
+    h1{
+        font-size:24px;
+        margin-bottom:16px;
+    }
+
+    .table-responsive table{
+        min-width:650px;
+    }
+
+    th,
+    td{
+        font-size:14px;
+        padding:10px;
+    }
+
+    .btn{
+        width:100%;
+        margin-bottom:6px;
+    }
+}

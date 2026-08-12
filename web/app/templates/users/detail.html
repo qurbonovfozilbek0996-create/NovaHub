@@ -1,0 +1,927 @@
+{% extends "base.html" %}
+
+{% block title %}Foydalanuvchi{% endblock %}
+
+{% block content %}
+
+<style>
+    .user-detail {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+    .back-button {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(255,255,255,.06);
+        color: inherit;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    .header-content {
+        min-width: 0;
+    }
+
+    .header-title {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .header-subtitle {
+        margin: 5px 0 0;
+        font-size: 13px;
+        opacity: .55;
+    }
+
+    .profile-card {
+        padding: 22px;
+        border-radius: 20px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .profile-summary {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 22px;
+    }
+
+    .avatar {
+        width: 62px;
+        height: 62px;
+        flex: 0 0 62px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 17px;
+        background: rgba(37,99,235,.12);
+        font-size: 28px;
+    }
+
+    .profile-identity {
+        min-width: 0;
+    }
+
+    .profile-name {
+        font-size: 21px;
+        font-weight: 800;
+        word-break: break-word;
+    }
+
+    .profile-username {
+        margin-top: 5px;
+        font-size: 14px;
+        opacity: .55;
+        word-break: break-word;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .info-item {
+        min-width: 0;
+        padding: 13px;
+        border-radius: 13px;
+        background: rgba(255,255,255,.035);
+    }
+
+    .info-label {
+        margin-bottom: 5px;
+        font-size: 11px;
+        opacity: .5;
+    }
+
+    .info-value {
+        font-size: 14px;
+        font-weight: 700;
+        word-break: break-word;
+    }
+
+    .status-active {
+        color: #22c55e;
+    }
+
+    .status-blocked {
+        color: #ef4444;
+    }
+
+    .section {
+        margin-top: 24px;
+    }
+
+    .section-title {
+        margin: 0 0 11px;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .management-list {
+        overflow: hidden;
+        border-radius: 18px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .management-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 17px;
+        box-sizing: border-box;
+        border: 0;
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        background: transparent;
+        color: inherit;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .management-item:last-child {
+        border-bottom: 0;
+    }
+
+    .management-item:hover {
+        background: rgba(255,255,255,.04);
+    }
+
+    .management-icon {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(255,255,255,.06);
+        font-size: 20px;
+    }
+
+    .management-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .management-title {
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .management-description {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: .5;
+    }
+
+    .management-arrow {
+        font-size: 21px;
+        opacity: .3;
+    }
+
+    .danger .management-icon {
+        background: rgba(239,68,68,.1);
+    }
+
+    .success .management-icon {
+        background: rgba(34,197,94,.1);
+    }
+
+    .primary .management-icon {
+        background: rgba(37,99,235,.1);
+    }
+
+    .role-editor {
+        display: none;
+        padding: 14px 17px 17px;
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        background: rgba(255,255,255,.025);
+    }
+
+    .role-editor.open {
+        display: block;
+    }
+
+    .role-form {
+        display: flex;
+        gap: 8px;
+    }
+
+    .role-input {
+        flex: 1;
+        min-width: 0;
+        padding: 11px 12px;
+        box-sizing: border-box;
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 10px;
+        background: rgba(255,255,255,.05);
+        color: inherit;
+        outline: none;
+    }
+
+    .role-save {
+        padding: 11px 16px;
+        border: 0;
+        border-radius: 10px;
+        background: #2563eb;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .error-card {
+        padding: 20px;
+        border-radius: 16px;
+        background: rgba(239,68,68,.1);
+        border: 1px solid rgba(239,68,68,.2);
+        color: #ef4444;
+    }
+
+    @media (max-width: 600px) {
+        .user-detail {
+            padding: 16px;
+        }
+
+        .header-title {
+            font-size: 22px;
+        }
+
+        .profile-card {
+            padding: 17px;
+            border-radius: 17px;
+        }
+
+        .profile-summary {
+            align-items: flex-start;
+        }
+
+        .avatar {
+            width: 54px;
+            height: 54px;
+            flex-basis: 54px;
+            font-size: 25px;
+        }
+
+        .profile-name {
+            font-size: 18px;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .management-item {
+            padding: 15px;
+        }
+
+        .role-form {
+            flex-direction: column;
+        }
+
+        .role-save {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="user-detail">
+
+    {% if error %}
+
+        <div class="detail-header">
+
+            <a
+                href="/admin/users/web"
+                class="back-button"
+            >
+                ←
+            </a>
+
+            <div class="header-content">
+                <h1 class="header-title">
+                    Foydalanuvchi
+                </h1>
+
+                <p class="header-subtitle">
+                    NovaHub foydalanuvchisi
+                </p>
+            </div>
+
+        </div>
+
+        <div class="error-card">
+            {{ error }}
+        </div>
+
+    {% else %}
+
+        <!-- HEADER -->
+
+        <div class="detail-header">
+
+            <a
+                href="/admin/users/web"
+                class="back-button"
+            >
+                ←
+            </a>
+
+            <div class="header-content">
+
+                <h1 class="header-title">
+                    Foydalanuvchi
+                </h1>
+
+                <p class="header-subtitle">
+                    Foydalanuvchi ma'lumotlari va boshqaruvi
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile-card">
+
+            <div class="profile-summary">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <div class="profile-identity">
+
+                    <div class="profile-name">
+                        {{ user.full_name or "Nomsiz foydalanuvchi" }}
+                    </div>
+
+                    <div class="profile-username">
+
+                        {% if user.username %}
+                            @{{ user.username }}
+                        {% else %}
+                            Foydalanuvchi nomi mavjud emas
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        ID
+                    </div>
+
+                    <div class="info-value">
+                        {{ user.id }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Telegram ID
+                    </div>
+
+                    <div class="info-value">
+                        {{ user.telegram_id }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Foydalanuvchi nomi
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if user.username %}
+                            @{{ user.username }}
+                        {% else %}
+                            —
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Til
+                    </div>
+
+                    <div class="info-value">
+                        {{ user.language or "Belgilanmagan" }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Vakolati
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if user.role_id %}
+                            {{ user.role_id }}
+                        {% else %}
+                            Belgilanmagan
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Holati
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if user.is_banned %}
+
+                            <span class="status-blocked">
+                                🚫 Bloklangan
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-active">
+                                🟢 Faol
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACCOUNT MANAGEMENT -->
+
+        <div class="section">
+
+            <h2 class="section-title">
+                Boshqaruv
+            </h2>
+
+
+            <div class="management-list">
+
+
+                <!-- BLOCK -->
+
+                <button
+                    type="button"
+                    class="management-item {% if user.is_banned %}success{% else %}danger{% endif %}"
+                    onclick="{% if user.is_banned %}unblockUser({{ user.id }}){% else %}blockUser({{ user.id }}){% endif %}"
+                >
+
+                    <div class="management-icon">
+
+                        {% if user.is_banned %}
+                            🔓
+                        {% else %}
+                            🔒
+                        {% endif %}
+
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+
+                            {% if user.is_banned %}
+                                Blokdan chiqarish
+                            {% else %}
+                                Foydalanuvchini bloklash
+                            {% endif %}
+
+                        </div>
+
+                        <div class="management-description">
+
+                            {% if user.is_banned %}
+                                Foydalanuvchiga tizimdan foydalanishni qayta yoqish.
+                            {% else %}
+                                Foydalanuvchining tizimdan foydalanishini vaqtincha cheklash.
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </button>
+
+
+                <!-- ROLE -->
+
+                <button
+                    type="button"
+                    class="management-item primary"
+                    onclick="toggleRoleEditor()"
+                >
+
+                    <div class="management-icon">
+                        🛡️
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+                            Vakolatni o‘zgartirish
+                        </div>
+
+                        <div class="management-description">
+                            Foydalanuvchining tizimdagi vakolatini boshqarish.
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </button>
+
+
+                <!-- ROLE EDITOR -->
+
+                <div
+                    id="role-editor"
+                    class="role-editor"
+                >
+
+                    <div class="role-form">
+
+                        <input
+                            id="role-id"
+                            class="role-input"
+                            type="number"
+                            min="1"
+                            value="{{ user.role_id or '' }}"
+                            placeholder="Vakolat ID"
+                        >
+
+                        <button
+                            type="button"
+                            class="role-save"
+                            onclick="changeRole({{ user.id }})"
+                        >
+                            Saqlash
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- USER DATA -->
+
+        <div class="section">
+
+            <h2 class="section-title">
+                Foydalanuvchi bo‘yicha boshqaruv
+            </h2>
+
+
+            <div class="management-list">
+
+
+                <!-- WALLET -->
+
+                <a
+                    href="#"
+                    class="management-item"
+                    onclick="return false;"
+                >
+
+                    <div class="management-icon">
+                        👛
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+                            Hamyon
+                        </div>
+
+                        <div class="management-description">
+                            Balans, hamyon holati va moliyaviy ma'lumotlar.
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+                <!-- ORDERS -->
+
+                <a
+                    href="#"
+                    class="management-item"
+                    onclick="return false;"
+                >
+
+                    <div class="management-icon">
+                        📦
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+                            Buyurtmalar
+                        </div>
+
+                        <div class="management-description">
+                            Foydalanuvchining barcha buyurtmalari va holatlari.
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+                <!-- PAYMENTS -->
+
+                <a
+                    href="#"
+                    class="management-item"
+                    onclick="return false;"
+                >
+
+                    <div class="management-icon">
+                        💳
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+                            To‘lovlar
+                        </div>
+
+                        <div class="management-description">
+                            To‘lovlar va tranzaksiyalar tarixi.
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </a>
+
+
+                <!-- ACTIVITY -->
+
+                <a
+                    href="#"
+                    class="management-item"
+                    onclick="return false;"
+                >
+
+                    <div class="management-icon">
+                        📋
+                    </div>
+
+                    <div class="management-content">
+
+                        <div class="management-title">
+                            Faoliyat tarixi
+                        </div>
+
+                        <div class="management-description">
+                            Foydalanuvchining tizimdagi harakatlari.
+                        </div>
+
+                    </div>
+
+                    <div class="management-arrow">
+                        ›
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<script>
+function toggleRoleEditor() {
+    const editor = document.getElementById("role-editor");
+
+    if (!editor) {
+        return;
+    }
+
+    editor.classList.toggle("open");
+}
+
+
+async function blockUser(id) {
+
+    if (
+        !confirm(
+            "Ushbu foydalanuvchini bloklashni tasdiqlaysizmi?"
+        )
+    ) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/admin/users/" + id + "/block",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(
+                data.message || "Xatolik yuz berdi."
+            );
+
+            return;
+        }
+
+        location.reload();
+
+    } catch (error) {
+
+        alert("Xatolik yuz berdi.");
+
+    }
+}
+
+
+async function unblockUser(id) {
+
+    if (
+        !confirm(
+            "Ushbu foydalanuvchini blokdan chiqarishni tasdiqlaysizmi?"
+        )
+    ) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/admin/users/" + id + "/unblock",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(
+                data.message || "Xatolik yuz berdi."
+            );
+
+            return;
+        }
+
+        location.reload();
+
+    } catch (error) {
+
+        alert("Xatolik yuz berdi.");
+
+    }
+}
+
+
+async function changeRole(id) {
+
+    const input = document.getElementById("role-id");
+
+    if (!input) {
+        return;
+    }
+
+    const roleId = input.value.trim();
+
+    if (!roleId) {
+
+        alert("Vakolat ID kiriting.");
+
+        return;
+    }
+
+    if (
+        !confirm(
+            "Foydalanuvchining vakolatini o‘zgartirishni tasdiqlaysizmi?"
+        )
+    ) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/admin/users/" + id + "/role/" + roleId,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(
+                data.message || "Xatolik yuz berdi."
+            );
+
+            return;
+        }
+
+        location.reload();
+
+    } catch (error) {
+
+        alert("Xatolik yuz berdi.");
+
+    }
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,311 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+        <div>
+            <h2 class="mb-1">Xizmatlar</h2>
+
+            <p class="text-muted mb-0">
+                Platforma, kategoriya va API xizmatlarini boshqarish
+            </p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+
+            <a
+                href="/admin/services/new"
+                class="btn btn-primary"
+            >
+                ➕ Xizmat qo‘shish
+            </a>
+
+            <a
+                href="/admin/services/page"
+                class="btn btn-outline-secondary"
+            >
+                🔄 Yangilash
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">
+                        Jami xizmatlar
+                    </div>
+
+                    <div class="fs-3 fw-bold">
+                        {{ services|length }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">
+                        Faol xizmatlar
+                    </div>
+
+                    <div class="fs-3 fw-bold text-success">
+                        {{ services|selectattr("is_active")|list|length }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="text-muted small">
+                        Nofaol xizmatlar
+                    </div>
+
+                    <div class="fs-3 fw-bold text-secondary">
+                        {{ services|rejectattr("is_active")|list|length }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Services table -->
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <div>
+                <h5 class="mb-0">
+                    Xizmatlar ro‘yxati
+                </h5>
+            </div>
+
+            <span class="badge bg-primary">
+                {{ services|length }} ta xizmat
+            </span>
+
+        </div>
+
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Xizmat</th>
+
+                            <th>Platforma</th>
+
+                            <th>Kategoriya</th>
+
+                            <th>Provider</th>
+
+                            <th>API narxi</th>
+
+                            <th>Min / Max</th>
+
+                            <th>Ustama</th>
+
+                            <th>Holati</th>
+
+                            <th class="text-end">
+                                Amallar
+                            </th>
+
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for service in services %}
+
+                        <tr>
+
+                            <!-- ID -->
+                            <td>
+                                <strong>
+                                    {{ service.service_id }}
+                                </strong>
+                            </td>
+
+
+                            <!-- Name -->
+                            <td style="min-width: 280px;">
+
+                                <div class="fw-semibold">
+                                    {{ service.name }}
+                                </div>
+
+                                <div class="small text-muted">
+                                    API ID:
+                                    {{ service.api_service_id }}
+                                </div>
+
+                            </td>
+
+
+                            <!-- Platform -->
+                            <td>
+                                {{ service.platform_id }}
+                            </td>
+
+
+                            <!-- Category -->
+                            <td>
+                                {{ service.category_id }}
+                            </td>
+
+
+                            <!-- Provider -->
+                            <td>
+                                {{ service.provider_id }}
+                            </td>
+
+
+                            <!-- API Price -->
+                            <td>
+
+                                <span class="fw-semibold">
+                                    {{ "{:,.0f}".format(service.api_price or 0) }}
+                                </span>
+
+                                <span class="text-muted">
+                                    so‘m
+                                </span>
+
+                            </td>
+
+
+                            <!-- Min / Max -->
+                            <td>
+
+                                {{ "{:,.0f}".format(service.min_quantity or 0) }}
+
+                                <span class="text-muted">
+                                    /
+                                </span>
+
+                                {{ "{:,.0f}".format(service.max_quantity or 0) }}
+
+                            </td>
+
+
+                            <!-- Markup -->
+                            <td>
+
+                                {{ "{:.2f}".format(service.markup_percent or 0) }}%
+
+                            </td>
+
+
+                            <!-- Status -->
+                            <td>
+
+                                {% if service.is_active %}
+
+                                    <span class="badge bg-success">
+                                        Faol
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        Nofaol
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Actions -->
+                            <td class="text-end">
+
+                                <a
+                                    href="/admin/services/{{ service.id }}"
+                                    class="btn btn-sm btn-outline-primary"
+                                >
+                                    Ko‘rish
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="10"
+                                class="text-center py-5"
+                            >
+
+                                <div class="fs-1 mb-2">
+                                    🛠️
+                                </div>
+
+                                <div class="fw-semibold">
+                                    Hozircha xizmatlar mavjud emas
+                                </div>
+
+                                <div class="text-muted mt-1">
+                                    Yangi xizmat qo‘shish uchun
+                                    “Xizmat qo‘shish” tugmasidan foydalaning.
+                                </div>
+
+                                <div class="mt-3">
+
+                                    <a
+                                        href="/admin/services/new"
+                                        class="btn btn-primary"
+                                    >
+                                        ➕ Xizmat qo‘shish
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

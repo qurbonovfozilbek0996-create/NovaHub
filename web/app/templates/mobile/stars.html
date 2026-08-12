@@ -1,0 +1,89 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}
+Telegram Stars
+{% endblock %}
+
+{% block tabs %}
+
+<a href="/stars" class="tab-item active">
+    ⭐ Stars
+</a>
+
+<a href="/premium" class="tab-item">
+    👑 Premium
+</a>
+
+<a href="/gifts" class="tab-item">
+    🎁 Gifts
+</a>
+
+<a href="/numbers" class="tab-item">
+    📱 Numbers
+</a>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-title">
+
+        ⭐ Telegram Stars
+
+    </div>
+
+    <div class="card-value">
+
+        Stars xarid qilish
+
+    </div>
+
+    <p style="margin-top:14px;line-height:1.8;">
+
+        Telegram hisobingiz uchun Stars xavfsiz va tez yetkazib beriladi.
+
+    </p>
+
+</div>
+
+<div class="card">
+
+    <div class="card-title">
+
+        Qabul qiluvchi
+
+    </div>
+
+    <input
+        type="text"
+        class="input"
+        placeholder="@username yoki ID"
+    >
+
+</div>
+
+<div class="card">
+
+    <div class="card-title">
+
+        Stars miqdori
+
+    </div>
+
+    <input
+        type="number"
+        class="input"
+        placeholder="Masalan: 50"
+    >
+
+</div>
+
+<button class="btn">
+
+    Davom etish
+
+</button>
+
+{% endblock %}

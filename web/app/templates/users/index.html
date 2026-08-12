@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}
+Foydalanuvchilar
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .users-page {
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .users-header {
+        margin-bottom: 24px;
+    }
+
+    .users-header h1 {
+        margin: 0 0 6px;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .users-header p {
+        margin: 0;
+        opacity: .6;
+        font-size: 14px;
+    }
+
+    .users-toolbar {
+        margin-bottom: 20px;
+    }
+
+    .users-search {
+        width: 100%;
+        max-width: 560px;
+        box-sizing: border-box;
+        padding: 13px 16px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,.1);
+        background: rgba(255,255,255,.05);
+        color: inherit;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .users-search:focus {
+        border-color: #2563eb;
+    }
+
+    .users-list {
+        display: grid;
+        gap: 14px;
+    }
+
+    .user-card {
+        padding: 20px;
+        border-radius: 18px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .user-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .user-name {
+        font-size: 17px;
+        font-weight: 800;
+        word-break: break-word;
+    }
+
+    .user-status {
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .user-status.active {
+        color: #22c55e;
+    }
+
+    .user-status.blocked {
+        color: #ef4444;
+    }
+
+    .user-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .user-info {
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.035);
+        min-width: 0;
+    }
+
+    .user-info-label {
+        margin-bottom: 5px;
+        font-size: 12px;
+        opacity: .55;
+    }
+
+    .user-info-value {
+        font-size: 14px;
+        font-weight: 700;
+        word-break: break-word;
+    }
+
+    .user-actions {
+        margin-top: 16px;
+    }
+
+    .view-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 46px;
+        padding: 10px 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        background: #2563eb;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        transition: background .2s ease, transform .2s ease;
+    }
+
+    .view-button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    .empty-users {
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 18px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        opacity: .7;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 13px;
+        opacity: .6;
+    }
+
+    @media (max-width: 600px) {
+        .users-page {
+            padding: 16px;
+        }
+
+        .users-header h1 {
+            font-size: 24px;
+        }
+
+        .user-card {
+            padding: 16px;
+            border-radius: 15px;
+        }
+
+        .user-top {
+            align-items: flex-start;
+        }
+
+        .user-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="users-page">
+
+    <div class="users-header">
+        <h1>👥 Foydalanuvchilar</h1>
+        <p>NovaHub foydalanuvchilarini ko‘rish va boshqarish</p>
+    </div>
+
+    <div class="users-toolbar">
+        <input
+            type="text"
+            id="search"
+            class="users-search"
+            placeholder="Ism yoki foydalanuvchi nomi bo‘yicha qidirish..."
+            oninput="filterUsers()"
+        >
+    </div>
+
+    <div class="users-list" id="usersList">
+
+        {% for user in users %}
+
+        <div
+            class="user-card"
+            data-search="{{ user.full_name or '' }} {{ user.username or '' }} {{ user.telegram_id }} {{ user.id }}"
+        >
+
+            <div class="user-top">
+
+                <div class="user-name">
+                    👤 {{ user.full_name or "Nomsiz foydalanuvchi" }}
+                </div>
+
+                {% if user.is_banned %}
+                    <div class="user-status blocked">
+                        🚫 Bloklangan
+                    </div>
+                {% else %}
+                    <div class="user-status active">
+                        🟢 Faol
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <div class="user-info-grid">
+
+                <div class="user-info">
+                    <div class="user-info-label">
+                        ID
+                    </div>
+
+                    <div class="user-info-value">
+                        {{ user.id }}
+                    </div>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-info-label">
+                        Telegram ID
+                    </div>
+
+                    <div class="user-info-value">
+                        {{ user.telegram_id }}
+                    </div>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-info-label">
+                        Foydalanuvchi nomi
+                    </div>
+
+                    <div class="user-info-value">
+                        {% if user.username %}
+                            @{{ user.username }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-info-label">
+                        Vakolati
+                    </div>
+
+                    <div class="user-info-value">
+                        {% if user.role_id %}
+                            {{ user.role_id }}
+                        {% else %}
+                            Belgilanmagan
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="user-actions">
+                <a
+                    href="/admin/users/{{ user.id }}"
+                    class="view-button"
+                >
+                    👁 Ko‘rish
+                </a>
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-users">
+            👥 Hozircha foydalanuvchilar mavjud emas.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% if page %}
+        <div class="pagination">
+            {{ page }}-sahifa
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function filterUsers() {
+    const input = document.getElementById("search");
+
+    const value = input.value
+        .trim()
+        .toLowerCase();
+
+    const users = document.querySelectorAll(".user-card");
+
+    users.forEach(function(user) {
+        const text = user.dataset.search.toLowerCase();
+
+        user.style.display =
+            !value || text.includes(value)
+                ? ""
+                : "none";
+    });
+}
+</script>
+
+{% endblock %}
