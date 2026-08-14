@@ -17,3 +17,6 @@ python-dotenv
 itsdangerous
 
 aiofiles
+
+aiosmtplib
+passlib[bcrypt]
