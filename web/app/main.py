@@ -19,7 +19,6 @@ from app.modules.stars.routes import router as stars_router
 from app.modules.services.routes.services import router as services_router
 from app.modules.services.routes.user_services import router as user_services_router
 from app.modules.services.routes.user_service_detail import router as user_service_detail_router
-from app.modules.orders.routes.orders import router as orders_router
 from app.modules.api_management.routes.providers import router as providers_router
 from app.modules.platforms.routes.platforms import router as platforms_router
 from app.modules.categories.routes.categories import router as categories_router
@@ -74,7 +73,6 @@ app.include_router(providers_router)
 app.include_router(services_router)
 app.include_router(user_services_router)
 app.include_router(user_service_detail_router)
-app.include_router(orders_router)
 app.include_router(platforms_router)
 app.include_router(categories_router)
 
