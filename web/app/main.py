@@ -16,7 +16,6 @@ from app.modules.admin.routes.permissions import router as admin_permissions_rou
 from app.modules.admin.routes.role_permissions import router as admin_role_permissions_router
 from app.modules.users.routes.users import router as admin_users_router
 from app.modules.stars.routes import router as stars_router
-from app.modules.products.routes import router as products_router
 from app.modules.services.routes.services import router as services_router
 from app.modules.services.routes.user_services import router as user_services_router
 from app.modules.services.routes.user_service_detail import router as user_service_detail_router
