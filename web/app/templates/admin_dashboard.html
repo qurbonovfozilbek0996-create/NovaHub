@@ -9,108 +9,353 @@ Boshqaruv paneli
 <style>
     .admin-dashboard {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1440px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 24px;
+        box-sizing: border-box;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     .dashboard-header {
-        margin-bottom: 22px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 26px;
+    }
+
+    .dashboard-header-content {
+        min-width: 0;
+    }
+
+    .dashboard-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .dashboard-eyebrow-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, .10);
     }
 
     .dashboard-header h1 {
-        margin: 0 0 6px;
-        font-size: 30px;
-        font-weight: 800;
+        margin: 0;
+        color: #f8fafc;
+        font-size: 32px;
+        line-height: 1.15;
+        font-weight: 850;
+        letter-spacing: -.025em;
     }
 
     .dashboard-header p {
-        margin: 0;
+        margin: 8px 0 0;
         color: #94a3b8;
         font-size: 14px;
+        line-height: 1.5;
     }
+
+    .dashboard-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        flex-shrink: 0;
+        padding: 10px 14px;
+        border: 1px solid rgba(34, 197, 94, .16);
+        border-radius: 12px;
+        background: rgba(34, 197, 94, .07);
+        color: #86efac;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .dashboard-status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, .10);
+    }
+
+    /* =========================
+       PRIMARY STATS
+    ========================= */
 
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 14px;
-        margin-bottom: 24px;
+        margin-bottom: 28px;
     }
 
     .stat-card {
+        position: relative;
         min-width: 0;
+        overflow: hidden;
         padding: 18px;
+        border: 1px solid rgba(255, 255, 255, .065);
         border-radius: 18px;
-        background: #111827;
-        border: 1px solid rgba(255,255,255,.07);
+        background:
+            linear-gradient(
+                145deg,
+                rgba(30, 41, 59, .72),
+                rgba(15, 23, 42, .92)
+            );
+        box-shadow:
+            0 8px 30px rgba(0, 0, 0, .12),
+            inset 0 1px 0 rgba(255, 255, 255, .025);
+        transition:
+            transform .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease;
+    }
+
+    .stat-card::after {
+        content: "";
+        position: absolute;
+        right: -35px;
+        bottom: -45px;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, .045);
+        pointer-events: none;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, .11);
+        box-shadow:
+            0 12px 35px rgba(0, 0, 0, .18),
+            inset 0 1px 0 rgba(255, 255, 255, .035);
+    }
+
+    .stat-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 16px;
     }
 
     .stat-icon {
-        font-size: 24px;
-        margin-bottom: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(59, 130, 246, .10);
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .stat-indicator {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #475569;
     }
 
     .stat-title {
+        min-height: 34px;
         color: #94a3b8;
-        font-size: 13px;
-        margin-bottom: 6px;
+        font-size: 12px;
+        line-height: 1.4;
+        font-weight: 600;
     }
 
     .stat-value {
+        margin-top: 4px;
+        color: #f8fafc;
         font-size: 25px;
-        font-weight: 800;
+        line-height: 1.15;
+        font-weight: 850;
+        letter-spacing: -.02em;
         word-break: break-word;
     }
 
-    .dashboard-section {
-        margin: 24px 0 12px;
-        font-size: 18px;
-        font-weight: 800;
+    .stat-value-money {
+        font-size: 21px;
     }
+
+    /* =========================
+       SECTION HEADER
+    ========================= */
+
+    .dashboard-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 30px 0 13px;
+    }
+
+    .dashboard-section-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        color: #f8fafc;
+        font-size: 17px;
+        line-height: 1.3;
+        font-weight: 800;
+        letter-spacing: -.01em;
+    }
+
+    .dashboard-section-title::before {
+        content: "";
+        width: 4px;
+        height: 18px;
+        border-radius: 999px;
+        background: #3b82f6;
+    }
+
+    .dashboard-section-caption {
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    /* =========================
+       QUICK ACTIONS
+    ========================= */
 
     .quick-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+        gap: 13px;
     }
 
     .quick-card {
-        display: block;
-        padding: 17px;
-        border-radius: 17px;
-        background: #111827;
-        border: 1px solid rgba(255,255,255,.07);
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+        padding: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, .065);
+        border-radius: 16px;
+        background: rgba(17, 24, 39, .82);
         color: #fff;
         text-decoration: none;
-        transition: .2s;
+        transition:
+            transform .2s ease,
+            background .2s ease,
+            border-color .2s ease;
     }
 
     .quick-card:hover {
-        background: #1e3a8a;
         transform: translateY(-2px);
+        background: rgba(30, 41, 59, .95);
+        border-color: rgba(59, 130, 246, .22);
     }
 
     .quick-icon {
-        font-size: 24px;
-        margin-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 43px;
+        width: 43px;
+        height: 43px;
+        border-radius: 13px;
+        background: rgba(59, 130, 246, .10);
+        font-size: 21px;
+    }
+
+    .quick-content {
+        min-width: 0;
+        flex: 1;
     }
 
     .quick-title {
-        font-weight: 700;
-        margin-bottom: 4px;
+        overflow: hidden;
+        margin-bottom: 3px;
+        color: #f8fafc;
+        font-size: 13px;
+        line-height: 1.3;
+        font-weight: 750;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .quick-text {
-        color: #94a3b8;
-        font-size: 12px;
+        overflow: hidden;
+        color: #64748b;
+        font-size: 11px;
         line-height: 1.4;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .quick-arrow {
+        flex: 0 0 auto;
+        color: #475569;
+        font-size: 18px;
+        transition: transform .2s ease, color .2s ease;
+    }
+
+    .quick-card:hover .quick-arrow {
+        color: #94a3b8;
+        transform: translateX(2px);
+    }
+
+    /* =========================
+       SYSTEM AREA
+    ========================= */
+
+    .system-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, .7fr);
+        gap: 14px;
     }
 
     .system-card {
-        padding: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, .065);
         border-radius: 18px;
-        background: #111827;
-        border: 1px solid rgba(255,255,255,.07);
+        background: rgba(17, 24, 39, .82);
+    }
+
+    .system-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 17px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, .055);
+    }
+
+    .system-card-title {
+        color: #f8fafc;
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+    .system-card-badge {
+        padding: 5px 8px;
+        border-radius: 7px;
+        background: rgba(34, 197, 94, .08);
+        color: #86efac;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .system-body {
+        padding: 0 18px;
     }
 
     .system-row {
@@ -118,8 +363,8 @@ Boshqaruv paneli
         align-items: center;
         justify-content: space-between;
         gap: 15px;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255,255,255,.06);
+        min-height: 52px;
+        border-bottom: 1px solid rgba(255, 255, 255, .05);
     }
 
     .system-row:last-child {
@@ -128,58 +373,150 @@ Boshqaruv paneli
 
     .system-label {
         color: #94a3b8;
-        font-size: 13px;
+        font-size: 12px;
+        font-weight: 550;
     }
 
     .system-value {
-        font-weight: 700;
+        color: #e2e8f0;
+        font-size: 12px;
+        font-weight: 750;
         text-align: right;
     }
 
     .status-online {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 7px;
+        color: #86efac;
     }
 
     .status-dot {
-        width: 8px;
-        height: 8px;
+        width: 7px;
+        height: 7px;
         border-radius: 50%;
         background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, .09);
     }
 
-    @media (max-width: 1000px) {
+    /* =========================
+       SUMMARY CARD
+    ========================= */
+
+    .summary-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+        padding: 20px;
+        border: 1px solid rgba(59, 130, 246, .12);
+        border-radius: 18px;
+        background:
+            radial-gradient(
+                circle at top right,
+                rgba(59, 130, 246, .13),
+                transparent 48%
+            ),
+            rgba(15, 23, 42, .86);
+    }
+
+    .summary-label {
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .07em;
+    }
+
+    .summary-value {
+        margin-top: 8px;
+        color: #f8fafc;
+        font-size: 27px;
+        line-height: 1.15;
+        font-weight: 850;
+        letter-spacing: -.025em;
+        word-break: break-word;
+    }
+
+    .summary-description {
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 11px;
+        line-height: 1.55;
+    }
+
+    .summary-divider {
+        height: 1px;
+        margin: 18px 0;
+        background: rgba(255, 255, 255, .06);
+    }
+
+    .summary-mini {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .summary-mini-label {
+        color: #64748b;
+        font-size: 11px;
+    }
+
+    .summary-mini-value {
+        color: #cbd5e1;
+        font-size: 11px;
+        font-weight: 750;
+        text-align: right;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1180px) {
         .stats-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
         .quick-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+
+        .system-layout {
+            grid-template-columns: 1fr;
+        }
     }
 
-    @media (max-width: 600px) {
-
+    @media (max-width: 760px) {
         .admin-dashboard {
-            padding: 14px;
+            padding: 16px 13px 24px;
         }
 
         .dashboard-header {
-            margin-bottom: 18px;
+            display: block;
+            margin-bottom: 20px;
         }
 
         .dashboard-header h1 {
-            font-size: 24px;
+            font-size: 25px;
         }
 
         .dashboard-header p {
-            font-size: 13px;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .dashboard-status {
+            margin-top: 14px;
+            padding: 8px 11px;
+            font-size: 11px;
         }
 
         .stats-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 9px;
+            margin-bottom: 22px;
         }
 
         .stat-card {
@@ -187,23 +524,44 @@ Boshqaruv paneli
             border-radius: 14px;
         }
 
+        .stat-top {
+            margin-bottom: 11px;
+        }
+
         .stat-icon {
-            font-size: 21px;
-            margin-bottom: 7px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            font-size: 17px;
         }
 
         .stat-title {
-            font-size: 11px;
-            line-height: 1.3;
+            min-height: 30px;
+            font-size: 10px;
         }
 
         .stat-value {
             font-size: 20px;
         }
 
+        .stat-value-money {
+            font-size: 16px;
+        }
+
         .dashboard-section {
-            margin-top: 20px;
-            font-size: 17px;
+            margin: 22px 0 10px;
+        }
+
+        .dashboard-section-title {
+            font-size: 15px;
+        }
+
+        .dashboard-section-title::before {
+            height: 16px;
+        }
+
+        .dashboard-section-caption {
+            display: none;
         }
 
         .quick-grid {
@@ -212,34 +570,97 @@ Boshqaruv paneli
         }
 
         .quick-card {
-            padding: 13px;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 12px;
             border-radius: 14px;
         }
 
         .quick-icon {
-            font-size: 21px;
+            flex-basis: 34px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            font-size: 17px;
         }
 
         .quick-title {
-            font-size: 13px;
-        }
-
-        .quick-text {
             font-size: 11px;
         }
 
+        .quick-text {
+            font-size: 9px;
+        }
+
+        .quick-arrow {
+            display: none;
+        }
+
         .system-card {
-            padding: 14px;
             border-radius: 15px;
         }
 
+        .system-card-header {
+            padding: 14px;
+        }
+
+        .system-body {
+            padding: 0 14px;
+        }
+
         .system-row {
-            padding: 11px 0;
+            min-height: 47px;
         }
 
         .system-label,
         .system-value {
-            font-size: 12px;
+            font-size: 10px;
+        }
+
+        .summary-card {
+            min-height: auto;
+            padding: 16px;
+            border-radius: 15px;
+        }
+
+        .summary-value {
+            font-size: 23px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .admin-dashboard {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .stats-grid,
+        .quick-grid {
+            gap: 7px;
+        }
+
+        .stat-card {
+            padding: 11px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+        }
+
+        .stat-value-money {
+            font-size: 14px;
+        }
+
+        .quick-card {
+            padding: 10px;
+        }
+
+        .quick-title {
+            font-size: 10px;
+        }
+
+        .quick-text {
+            font-size: 8px;
         }
     }
 </style>
@@ -247,213 +668,528 @@ Boshqaruv paneli
 
 <div class="admin-dashboard">
 
-    <!-- SARLAVHA -->
-    <div class="dashboard-header">
+    <!-- =========================
+         DASHBOARD HEADER
+    ========================== -->
 
-        <h1>
-            Boshqaruv paneli
-        </h1>
+    <header class="dashboard-header">
 
-        <p>
-            NovaHub boshqaruv tizimiga xush kelibsiz.
-        </p>
+        <div class="dashboard-header-content">
 
-    </div>
+            <div class="dashboard-eyebrow">
+                <span class="dashboard-eyebrow-dot"></span>
+                NovaHub Admin
+            </div>
 
+            <h1>Boshqaruv paneli</h1>
 
-    <!-- ASOSIY STATISTIKA -->
-    <div class="stats-grid">
+            <p>
+                Tizimning asosiy ko‘rsatkichlari va boshqaruv bo‘limlari.
+            </p>
 
-        <div class="stat-card">
-            <div class="stat-icon">👥</div>
-            <div class="stat-title">Jami foydalanuvchilar</div>
-            <div class="stat-value">{{ stats.total_users }}</div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">🟢</div>
-            <div class="stat-title">Faol foydalanuvchilar</div>
-            <div class="stat-value">{{ stats.active_users }}</div>
+        <div class="dashboard-status">
+            <span class="dashboard-status-dot"></span>
+            Tizim ishlamoqda
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">📦</div>
-            <div class="stat-title">Jami buyurtmalar</div>
-            <div class="stat-value">{{ stats.total_orders }}</div>
-        </div>
+    </header>
+
+
+    <!-- =========================
+         ASOSIY STATISTIKA
+    ========================== -->
+
+    <section class="stats-grid">
 
         <div class="stat-card">
-            <div class="stat-icon">⏳</div>
-            <div class="stat-title">Kutilayotgan buyurtmalar</div>
-            <div class="stat-value">{{ stats.pending_orders }}</div>
-        </div>
+            <div class="stat-top">
+                <div class="stat-icon">👥</div>
+                <span class="stat-indicator"></span>
+            </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <div class="stat-title">Tugallangan buyurtmalar</div>
-            <div class="stat-value">{{ stats.completed_orders }}</div>
-        </div>
+            <div class="stat-title">
+                Jami foydalanuvchilar
+            </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">🛠️</div>
-            <div class="stat-title">Xizmatlar</div>
-            <div class="stat-value">{{ stats.total_services }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🌐</div>
-            <div class="stat-title">Platformalar</div>
-            <div class="stat-value">{{ stats.total_platforms }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🔌</div>
-            <div class="stat-title">API ta'minotchilar</div>
-            <div class="stat-value">{{ stats.total_providers }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">👛</div>
-            <div class="stat-title">Hamyon balansi</div>
             <div class="stat-value">
-                {{ "{:,.0f}".format(stats.wallet_balance or 0) }} so'm
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🛡️</div>
-            <div class="stat-title">Vakolatlar</div>
-            <div class="stat-value">{{ stats.total_roles }}</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">🔑</div>
-            <div class="stat-title">Ruxsatlar</div>
-            <div class="stat-value">{{ stats.total_permissions }}</div>
-        </div>
-
-    </div>
-
-
-    <!-- TEZKOR BOSHQARUV -->
-    <div class="dashboard-section">
-        Tezkor boshqaruv
-    </div>
-
-    <div class="quick-grid">
-
-        <a href="/admin/users/web" class="quick-card">
-            <div class="quick-icon">👥</div>
-            <div class="quick-title">Foydalanuvchilar</div>
-            <div class="quick-text">
-                Foydalanuvchilarni ko‘rish
-            </div>
-        </a>
-
-        <a href="/admin/services/" class="quick-card">
-            <div class="quick-icon">🛠️</div>
-            <div class="quick-title">Xizmatlar</div>
-            <div class="quick-text">
-                Xizmatlarni boshqarish
-            </div>
-        </a>
-
-        <a href="/admin/platforms/" class="quick-card">
-            <div class="quick-icon">🌐</div>
-            <div class="quick-title">Platformalar</div>
-            <div class="quick-text">
-                Platformalarni boshqarish
-            </div>
-        </a>
-
-        <a href="/admin/categories/" class="quick-card">
-            <div class="quick-icon">📂</div>
-            <div class="quick-title">Kategoriyalar</div>
-            <div class="quick-text">
-                Kategoriyalarni boshqarish
-            </div>
-        </a>
-
-        <a href="/admin/payments/" class="quick-card">
-            <div class="quick-icon">💳</div>
-            <div class="quick-title">To‘lovlar</div>
-            <div class="quick-text">
-                To‘lovlarni boshqarish
-            </div>
-        </a>
-
-        <a href="/admin/roles/" class="quick-card">
-            <div class="quick-icon">🛡️</div>
-            <div class="quick-title">Vakolatlar</div>
-            <div class="quick-text">
-                Admin vakolatlarini boshqarish
-            </div>
-        </a>
-
-    </div>
-
-
-    <!-- TIZIM HOLATI -->
-    <div class="dashboard-section">
-        Tizim holati
-    </div>
-
-    <div class="system-card">
-
-        <div class="system-row">
-            <div class="system-label">
-                NovaHub
-            </div>
-
-            <div class="system-value status-online">
-                <span class="status-dot"></span>
-                Ishlamoqda
-            </div>
-        </div>
-
-        <div class="system-row">
-            <div class="system-label">
-                Foydalanuvchilar
-            </div>
-
-            <div class="system-value">
                 {{ stats.total_users }}
             </div>
         </div>
 
-        <div class="system-row">
-            <div class="system-label">
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🟢</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Faol foydalanuvchilar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.active_users }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">📦</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Jami buyurtmalar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.total_orders }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">⏳</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Kutilayotgan buyurtmalar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.pending_orders }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">✅</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Tugallangan buyurtmalar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.completed_orders }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🛠️</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
                 Xizmatlar
             </div>
 
-            <div class="system-value">
+            <div class="stat-value">
                 {{ stats.total_services }}
             </div>
         </div>
 
-        <div class="system-row">
-            <div class="system-label">
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🌐</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Platformalar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.total_platforms }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🔌</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
                 API ta'minotchilar
             </div>
 
-            <div class="system-value">
+            <div class="stat-value">
                 {{ stats.total_providers }}
             </div>
         </div>
 
-        <div class="system-row">
-            <div class="system-label">
-                Hamyon aylanmasi
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">👛</div>
+                <span class="stat-indicator"></span>
             </div>
 
-            <div class="system-value">
+            <div class="stat-title">
+                Hamyon balansi
+            </div>
+
+            <div class="stat-value stat-value-money">
                 {{ "{:,.0f}".format(stats.wallet_balance or 0) }} so'm
             </div>
         </div>
 
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🛡️</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Vakolatlar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.total_roles }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">🔑</div>
+                <span class="stat-indicator"></span>
+            </div>
+
+            <div class="stat-title">
+                Ruxsatlar
+            </div>
+
+            <div class="stat-value">
+                {{ stats.total_permissions }}
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TEZKOR BOSHQARUV
+    ========================== -->
+
+    <div class="dashboard-section">
+
+        <h2 class="dashboard-section-title">
+            Tezkor boshqaruv
+        </h2>
+
+        <span class="dashboard-section-caption">
+            Asosiy bo‘limlar
+        </span>
+
     </div>
 
-    <div style="height:40px;"></div>
+
+    <section class="quick-grid">
+
+        <a href="/admin/users/web" class="quick-card">
+
+            <div class="quick-icon">👥</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    Foydalanuvchilar
+                </div>
+
+                <div class="quick-text">
+                    Foydalanuvchilarni ko‘rish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <a href="/admin/services/" class="quick-card">
+
+            <div class="quick-icon">🛠️</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    Xizmatlar
+                </div>
+
+                <div class="quick-text">
+                    Xizmatlarni boshqarish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <a href="/admin/platforms/" class="quick-card">
+
+            <div class="quick-icon">🌐</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    Platformalar
+                </div>
+
+                <div class="quick-text">
+                    Platformalarni boshqarish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <a href="/admin/categories/" class="quick-card">
+
+            <div class="quick-icon">📂</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    Kategoriyalar
+                </div>
+
+                <div class="quick-text">
+                    Kategoriyalarni boshqarish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <a href="/admin/payments/" class="quick-card">
+
+            <div class="quick-icon">💳</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    To‘lovlar
+                </div>
+
+                <div class="quick-text">
+                    To‘lovlarni boshqarish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <a href="/admin/roles/" class="quick-card">
+
+            <div class="quick-icon">🛡️</div>
+
+            <div class="quick-content">
+                <div class="quick-title">
+                    Vakolatlar
+                </div>
+
+                <div class="quick-text">
+                    Admin vakolatlarini boshqarish
+                </div>
+            </div>
+
+            <div class="quick-arrow">
+                →
+            </div>
+
+        </a>
+
+    </section>
+
+
+    <!-- =========================
+         TIZIM HOLATI
+    ========================== -->
+
+    <div class="dashboard-section">
+
+        <h2 class="dashboard-section-title">
+            Tizim holati
+        </h2>
+
+        <span class="dashboard-section-caption">
+            Asosiy tizim ko‘rsatkichlari
+        </span>
+
+    </div>
+
+
+    <section class="system-layout">
+
+        <div class="system-card">
+
+            <div class="system-card-header">
+
+                <div class="system-card-title">
+                    NovaHub tizimi
+                </div>
+
+                <div class="system-card-badge">
+                    Faol
+                </div>
+
+            </div>
+
+
+            <div class="system-body">
+
+                <div class="system-row">
+
+                    <div class="system-label">
+                        NovaHub
+                    </div>
+
+                    <div class="system-value status-online">
+                        <span class="status-dot"></span>
+                        Ishlamoqda
+                    </div>
+
+                </div>
+
+
+                <div class="system-row">
+
+                    <div class="system-label">
+                        Foydalanuvchilar
+                    </div>
+
+                    <div class="system-value">
+                        {{ stats.total_users }}
+                    </div>
+
+                </div>
+
+
+                <div class="system-row">
+
+                    <div class="system-label">
+                        Xizmatlar
+                    </div>
+
+                    <div class="system-value">
+                        {{ stats.total_services }}
+                    </div>
+
+                </div>
+
+
+                <div class="system-row">
+
+                    <div class="system-label">
+                        API ta'minotchilar
+                    </div>
+
+                    <div class="system-value">
+                        {{ stats.total_providers }}
+                    </div>
+
+                </div>
+
+
+                <div class="system-row">
+
+                    <div class="system-label">
+                        Hamyon aylanmasi
+                    </div>
+
+                    <div class="system-value">
+                        {{ "{:,.0f}".format(stats.wallet_balance or 0) }} so'm
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div>
+
+                <div class="summary-label">
+                    Jami buyurtmalar
+                </div>
+
+                <div class="summary-value">
+                    {{ stats.total_orders }}
+                </div>
+
+                <div class="summary-description">
+                    NovaHub orqali yaratilgan barcha buyurtmalar soni.
+                </div>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-mini">
+
+                <span class="summary-mini-label">
+                    Kutilmoqda
+                </span>
+
+                <span class="summary-mini-value">
+                    {{ stats.pending_orders }}
+                </span>
+
+            </div>
+
+
+            <div style="height: 10px;"></div>
+
+
+            <div class="summary-mini">
+
+                <span class="summary-mini-label">
+                    Tugallangan
+                </span>
+
+                <span class="summary-mini-value">
+                    {{ stats.completed_orders }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div style="height: 42px;"></div>
 
 </div>
 
